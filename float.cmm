@@ -1,0 +1,6 @@
+int main(){
+	float a = 0.1,b = 0.002e-1;
+	float c = 0.002E13;
+	float d = .12e-12;
+	float e = 5e12,l = 01e12,m = 01.23e12;
+}
