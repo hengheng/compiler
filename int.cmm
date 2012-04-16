@@ -1,0 +1,9 @@
+int main(){
+	int i = 556,q = 12;
+	int j = 0;
+	int k = 0xef;
+	int l = 0XFA,m = 0x0,n=0xaa12;
+	int a = 012,b = 077;
+}	
+
+
