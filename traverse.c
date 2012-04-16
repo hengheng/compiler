@@ -45,7 +45,7 @@ void printSpace(int i){
 
 
 void traverse(treeNode* root,int i){	
-	if(root != NULL && root->lineno != NULL_LINE){
+	if(root != NULL){
 		printSpace(i);
 		display(root);
 		root = root->firstChild;

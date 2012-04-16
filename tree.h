@@ -9,7 +9,7 @@ typedef union {
 }nodeContent;
 
 typedef struct Node {
-	int type;
+    int type;
 	nodeContent content;
 	int lineno;
 	struct Node* firstChild;

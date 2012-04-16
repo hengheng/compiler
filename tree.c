@@ -10,10 +10,13 @@ treeNode* treeNodeMalloc(treeNode* copy){
 }
 
 void insert(treeNode* parent,treeNode* child){
-	treeNode* node = (treeNode*)malloc(sizeof(treeNode));
-	memcpy((char*)node,(char*)child,sizeof(treeNode));
-	node->sibling = parent->firstChild;
-	parent->firstChild = node;
+    if(child->lineno != 0)
+    {
+	    treeNode* node = (treeNode*)malloc(sizeof(treeNode));
+	    memcpy((char*)node,(char*)child,sizeof(treeNode));
+	    node->sibling = parent->firstChild;
+	    parent->firstChild = node;
+	}
 }
 
 
