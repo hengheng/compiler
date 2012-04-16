@@ -49,7 +49,7 @@ void traverse(treeNode* root,int i){
 		printSpace(i);
 		display(root);
 		root = root->firstChild;
-		while(root != NULL && root->lineno != NULL_LINE){
+		while(root != NULL){
 			i = i+2;
 			traverse(root,i);
 			i = i-2;	
