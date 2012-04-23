@@ -1,0 +1,6 @@
+all:stack.o hash.o
+
+stack.o:stack.c
+	gcc -c stack.c
+hash.o:hash.c
+	gcc -c hash.c

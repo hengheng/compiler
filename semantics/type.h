@@ -1,0 +1,72 @@
+#ifndef     TYPE_H
+#define     TYPE_H
+
+/* 
+ * definitions of the symbol table
+ * and the type table 
+ *    1.use the symbol table to record the variable and function
+ *    2.use the type table to record the type, such as the structure you defined
+ */
+
+/* definition of the variable recorded in the symbol table */
+struct VariableType 
+{
+    char* variableName;
+    union value {
+        int intValue;
+        float floatValue;
+    };
+    char* address;
+};
+
+struct ComplexVariableType
+{
+    char* cVariableName;
+    char* typeName;
+};
+
+/* definition of the function recorded in the symbol table */
+struct FuncType
+{
+    char* funcName;
+    char* typeName;
+    int funcState;      //defined or declared
+};
+#define     DEFINED         127
+#define     DECLARED        128
+
+/* definetion of the entry in the symbol table */
+struct entryInSymbolTable
+{
+    int typeId;
+    union {
+        struct VariableType variable;
+        struct ComplexVariableType  complexVariable;
+        struct Functype func;
+    } element;
+    struct entryInSymbolTable* nextEntry;
+    struct entryInSymbolTable* nextEntryInTheSameDomain;
+};
+
+/* 
+ * you can assign "typeId" with the values below 
+ * INT and FLOAT have been defined in syntax.tab.h
+ */
+
+#define     STRUCT      3
+#define     ARRAY       4
+#define     FUNCTION    5
+
+/* define the entry in the type table */
+struct entryInTypeTable
+{ 
+    int typeId;
+    union { 
+        char *name;      
+        struct {char* name;int size;struct entryInTypeTable* nextEntry;} array;
+        struct {char* name;struct entryInTypeTable* nextEntry;} structure;
+    }
+    struct entryInTypeTable* nextElement;   
+}
+
+#endif
