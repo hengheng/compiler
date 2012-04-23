@@ -32,25 +32,25 @@ void fill_non_terminal(YYSTYPE* yyval,char* name,int lineno){
 %token        IF
 %token        ELSE
 %token        WHILE
-%token         ASSIGNOP
-%token         OR
-%token         AND
-%token         RELOP
-%token         PLUS MINUS
-%token         STAR DIV
+%token        ASSIGNOP
+%token        OR
+%token        AND
+%token        RELOP
+%token        PLUS MINUS
+%token        STAR DIV
 %token        UMINUS NOT 
 %token        LP RP LB RB DOT
 
 %token        SYNTAX
 
 /* declared precedence and associativity of the opeartors */
-%right        ASSIGNOP
+%right       ASSIGNOP
 %left        OR
 %left        AND
 %left        RELOP
 %left        PLUS MINUS
 %left        STAR DIV
-%right        UMINUS NOT
+%right       UMINUS NOT
 %left        LP RP LB RB DOT
 /* deal with if-else conflict */
 %nonassoc    LOWER_THAN_ELSE
@@ -88,6 +88,12 @@ ExtDef              :       Specifier ExtDecList SEMI       {
                                                                 insert(&$$,&$1);    
                                                             }
                     |       Specifier FunDec CompSt         {                    
+                                                                fill_non_terminal(&$$,"ExtDef",$1.lineno);
+                                                                insert(&$$,&$3);
+                                                                insert(&$$,&$2);
+                                                                insert(&$$,&$1);
+                                                            }
+                    |       Specifier FunDec SEMI           {
                                                                 fill_non_terminal(&$$,"ExtDef",$1.lineno);
                                                                 insert(&$$,&$3);
                                                                 insert(&$$,&$2);
@@ -299,9 +305,27 @@ Dec                 :       VarDec                          {
                                                                 insert(&$$,&$1);
                                                             }
                     ;
-                    
+
+LeftVal             :       ID                              {
+                                                                fill_non_terminal(&$$,"LeftVal",$1.lineno);    
+                                                                insert(&$$,&$1);
+                                                            }
+                    |       Exp LB Exp RB                   {
+                                                                fill_non_terminal(&$$,"LeftVal",$1.lineno);  
+                                                                insert(&$$,&$4);  
+                                                                insert(&$$,&$3);
+                                                                insert(&$$,&$2);
+                                                                insert(&$$,&$1);
+                                                            }
+                    |       Exp DOT ID                      {
+                                                                fill_non_terminal(&$$,"LeftVal",$1.lineno);    
+                                                                insert(&$$,&$3);
+                                                                insert(&$$,&$2);
+                                                                insert(&$$,&$1);
+                                                            }
+                    ;                         
 /* Expressions */
-Exp                 :       Exp ASSIGNOP Exp                {
+Exp                 :       LeftVal ASSIGNOP Exp            {
                                                                 fill_non_terminal(&$$,"Exp",$1.lineno);    
                                                                 insert(&$$,&$3);
                                                                 insert(&$$,&$2);

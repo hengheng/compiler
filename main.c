@@ -2,16 +2,23 @@
 int errorOccur;
 
 int main(int argc,char** argv){
-	if(argc <= 1){
+	if(argc <= 1)
+	{
 		return 1;
 	}
 	FILE* file = fopen(argv[1],"r");
-	if(!file){
+	if(!file)
+	{
 		perror(argv[1]);
 		return 1;
 	}
 	yyrestart(file);
 	yyparse();
-	if(errorOccur == 0)traverse(root,0);
+	if(errorOccur == 0)
+	{
+	    initTable();
+	    traverseAndCheck(root);
+	    traverseTable();
+	}
 	return 0;
 }

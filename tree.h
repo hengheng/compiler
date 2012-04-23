@@ -27,4 +27,8 @@ void insert(treeNode* parent,treeNode* child);
 treeNode* treeNodeMalloc();
 void display(treeNode* p);
 void traverse(treeNode* root,int i);
+void traverseAndCheck(treeNode* root);
+
+void strCopy(char* dst,char* src);
+
 #endif
